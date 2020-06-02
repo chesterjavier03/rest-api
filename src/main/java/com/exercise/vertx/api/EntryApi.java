@@ -70,11 +70,6 @@ public class EntryApi extends AbstractVerticle {
         if (id == null) {
             routingContext.response().setStatusCode(400).end();
         } else {
-//            Entry entry = util.fetchEntryById(id);
-//            routingContext.response()
-//                    .setStatusCode(200)
-//                    .putHeader("content-type", "application/json; charset=utf-8")
-//                    .end(Json.encodePrettily(entry));
             mongo.findOne(COLLECTION, new JsonObject().put("_id", id), null, ar -> {
                 if (ar.succeeded()) {
                     if (ar.result() == null) {
@@ -117,10 +112,6 @@ public class EntryApi extends AbstractVerticle {
                     .end(Json.encodePrettily(whiskies));
         });
     }
-//        routingContext.response()
-//                .putHeader("content-type", "application/json; charset=utf-8")
-//                .end(Json.encodePrettily(util.fetchAll()));
-//}
 
     private void fetchSubEntries(RoutingContext routingContext) {
         LOGGER.info("Fetching all sub entries....");
